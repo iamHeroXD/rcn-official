@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Globe, Mail, MessageCircle, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export const Footer = () => {
   return (
@@ -45,11 +46,17 @@ export const Footer = () => {
           <div>
             <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Legal</h4>
             <ul className="space-y-4">
-              {["Terms of Service", "Privacy Policy", "Creator Guidelines", "Marketplace Rules", "Scam Prevention"].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-white/30 hover:text-white transition-colors text-sm">
-                    {link}
-                  </a>
+              {[
+                { name: "Terms of Service", href: "/terms" },
+                { name: "Privacy Policy", href: "/privacy" },
+                { name: "Creator Guidelines", href: "/guidelines" },
+                { name: "Marketplace Rules", href: "/rules" },
+                { name: "Scam Prevention", href: "/safety" },
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-white/30 hover:text-white transition-colors text-sm">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
