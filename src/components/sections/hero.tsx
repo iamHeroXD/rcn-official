@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 import { View } from "@react-three/drei";
 import { Hero3D } from "@/components/canvas/hero-3d";
 import Magnetic from "@/components/animations/magnetic";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { ChevronRight, MessageSquare } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const RotatingTaglines = () => {
   const taglines = [
@@ -102,37 +103,50 @@ export const Hero = () => {
           className="flex flex-col md:flex-row gap-6 justify-center items-center"
         >
           <Magnetic>
-            <Button 
-              asChild
-              className="h-16 px-10 text-lg rounded-full bg-white text-black hover:bg-white/90 transition-all duration-300 group purple-glow shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+            <motion.a 
+              href="https://discord.gg/rcn" 
+              target="_blank" 
+              whileTap={{ scale: 0.95 }}
+              className={cn(
+                buttonVariants(),
+                "h-16 px-10 text-lg rounded-full bg-white text-black hover:bg-white/90 transition-all duration-300 group purple-glow shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+              )}
             >
-              <motion.a href="https://discord.gg/rcn" target="_blank" whileTap={{ scale: 0.95 }}>
-                Add To Discord
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
-                  className="ml-2"
-                >
-                  <MessageSquare className="w-5 h-5" />
-                </motion.span>
-              </motion.a>
-            </Button>
+              Add To Discord
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="ml-2"
+              >
+                <MessageSquare className="w-5 h-5" />
+              </motion.span>
+            </motion.a>
           </Magnetic>
 
           <Magnetic>
-            <Button asChild variant="outline" className="h-16 px-10 text-lg rounded-full border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 text-white transition-all duration-300">
-              <motion.a href="#features" whileTap={{ scale: 0.95 }}>
-                Explore Features
-              </motion.a>
-            </Button>
+            <motion.a 
+              href="#features" 
+              whileTap={{ scale: 0.95 }}
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "h-16 px-10 text-lg rounded-full border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 text-white transition-all duration-300"
+              )}
+            >
+              Explore Features
+            </motion.a>
           </Magnetic>
 
           <Magnetic>
-            <Button asChild variant="ghost" className="h-16 px-10 text-lg rounded-full text-white/40 hover:text-white transition-colors">
-              <motion.a href="#premium" whileTap={{ scale: 0.95 }}>
-                Join Marketplace
-              </motion.a>
-            </Button>
+            <motion.a 
+              href="#premium" 
+              whileTap={{ scale: 0.95 }}
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                "h-16 px-10 text-lg rounded-full text-white/40 hover:text-white transition-colors"
+              )}
+            >
+              Join Marketplace
+            </motion.a>
           </Magnetic>
         </motion.div>
       </div>

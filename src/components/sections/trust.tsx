@@ -60,6 +60,33 @@ const StatCard = ({ stat, i }: { stat: any, i: number }) => {
   );
 };
 
+const stats = [
+  { 
+    label: "30+", 
+    value: "Deals Secured", 
+    desc: "Over $15,000+ in value successfully traded through RCN channels.",
+    icon: <ShieldCheck className="w-6 h-6 text-green-400" />
+  },
+  { 
+    label: "100+", 
+    value: "Active Users", 
+    desc: "A growing network of the most talented creators in the Roblox space.",
+    icon: <Users className="w-6 h-6 text-blue-400" />
+  },
+  { 
+    label: "24/7", 
+    value: "Bot Engine", 
+    desc: "Reliable automation powered by our custom high-performance infrastructure.",
+    icon: <Bot className="w-6 h-6 text-prime-purple" />
+  },
+  { 
+    label: "Global", 
+    value: "Network", 
+    desc: "Connecting studios and creators from every corner of the world.",
+    icon: <Globe className="w-6 h-6 text-prime-red" />
+  }
+];
+
 export const Trust = () => {
   return (
     <section className="py-24 px-4 bg-black relative">

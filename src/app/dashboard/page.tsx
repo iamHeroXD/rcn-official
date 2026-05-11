@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import { Terminal, Shield, Cpu, Activity, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Magnetic from "@/components/animations/magnetic";
+import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
   return (
@@ -63,9 +64,15 @@ export default function DashboardPage() {
         </motion.div>
 
         <Magnetic>
-          <Button asChild className="w-full h-14 rounded-2xl bg-prime-purple hover:bg-prime-purple/80 text-white font-bold purple-glow">
-            <Link href="/#premium">Upgrade Now</Link>
-          </Button>
+          <Link 
+            href="/#premium"
+            className={cn(
+              buttonVariants(),
+              "w-full h-14 rounded-2xl bg-prime-purple hover:bg-prime-purple/80 text-white font-bold purple-glow"
+            )}
+          >
+            Upgrade Now
+          </Link>
         </Magnetic>
       </motion.div>
 

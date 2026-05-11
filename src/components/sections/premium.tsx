@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { Check, Zap, Crown, Building2, Star } from "lucide-react";
 import Magnetic from "@/components/animations/magnetic";
 import Tilt from "@/components/animations/tilt";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const plans = [
   {
@@ -123,14 +124,17 @@ export const Premium = () => {
 
                 <div className="relative z-10 mt-auto">
                   <Magnetic>
-                    <Button 
-                      asChild
-                      className={`w-full h-14 rounded-2xl font-bold transition-all duration-300 ${plan.popular ? 'bg-prime-purple hover:bg-prime-purple/80 text-white purple-glow shadow-[0_0_30px_rgba(94,0,255,0.3)]' : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'}`}
+                    <a 
+                      href="https://discord.gg/rcn" 
+                      target="_blank"
+                      className={cn(
+                        buttonVariants(),
+                        "w-full h-14 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center",
+                        plan.popular ? 'bg-prime-purple hover:bg-prime-purple/80 text-white purple-glow shadow-[0_0_30px_rgba(94,0,255,0.3)]' : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'
+                      )}
                     >
-                      <a href="https://discord.gg/rcn" target="_blank">
-                        {plan.btnText}
-                      </a>
-                    </Button>
+                      {plan.btnText}
+                    </a>
                   </Magnetic>
                 </div>
                 

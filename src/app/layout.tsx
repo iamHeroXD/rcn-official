@@ -10,6 +10,7 @@ import { MobileNav } from "@/components/ui/mobile-nav";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { BackToTop } from "@/components/ui/back-to-top";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -49,6 +50,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased bg-black`}>
         <div className="noise-overlay" />
         <ToastProvider>
+          <Analytics />
           <LenisProvider>
             <LoadingScreen />
             <CustomCursor />
