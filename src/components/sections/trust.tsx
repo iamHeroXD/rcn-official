@@ -1,32 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Users, Briefcase, Zap, Star } from "lucide-react";
+import { ShieldCheck, Users, Briefcase, Zap, Bot, Globe } from "lucide-react";
 
 const stats = [
   {
-    label: "99.9% Uptime",
-    value: "Reliability",
-    icon: <Zap className="w-6 h-6 text-yellow-400" />,
-    desc: "Always online, always protecting your deals.",
+    label: "30+ Deals",
+    value: "Proven",
+    icon: <Briefcase className="w-6 h-6 text-prime-red" />,
+    desc: "Successfully tracked and protected trades.",
   },
   {
-    label: "25k+ Users",
+    label: "100+ Users",
     value: "Community",
     icon: <Users className="w-6 h-6 text-prime-purple" />,
     desc: "Growing network of Roblox professionals.",
   },
   {
-    label: "Verified Only",
-    value: "Security",
-    icon: <ShieldCheck className="w-6 h-6 text-green-400" />,
-    desc: "Strict verification for all premium creators.",
+    label: "50+ Websites",
+    value: "85% Happy",
+    icon: <Globe className="w-6 h-6 text-blue-400" />,
+    desc: "High-end web solutions for global studios.",
   },
   {
-    label: "10k+ Deals",
-    value: "Proven",
-    icon: <Briefcase className="w-6 h-6 text-prime-red" />,
-    desc: "Successfully tracked and protected trades.",
+    label: "Bot Experts",
+    value: "Automation",
+    icon: <Bot className="w-6 h-6 text-green-400" />,
+    desc: "Custom Discord systems built for creators.",
   },
 ];
 
@@ -63,11 +63,10 @@ export const Trust = () => {
           transition={{ delay: 0.5, duration: 1 }}
           className="mt-20 flex flex-wrap justify-center items-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700"
         >
-          {/* Trust badges / logos placeholders */}
           <div className="text-xl font-bold tracking-tighter text-white">ROBLOX STUDIOS</div>
           <div className="text-xl font-bold tracking-tighter text-white">DISCORD VERIFIED</div>
           <div className="text-xl font-bold tracking-tighter text-white">ELITE CREATORS</div>
-          <div className="text-xl font-bold tracking-tighter text-white">PRIME NETWORK</div>
+          <div className="text-xl font-bold tracking-tighter text-white">BOT AUTOMATION</div>
         </motion.div>
       </div>
     </section>

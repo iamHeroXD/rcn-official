@@ -5,6 +5,8 @@ import { LenisProvider } from "@/components/providers/lenis-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { GlobalCanvas } from "@/components/canvas/global-canvas";
+import { Navbar } from "@/components/ui/navbar";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -46,6 +48,8 @@ export default function RootLayout({
           <LoadingScreen />
           <CustomCursor />
           <GlobalCanvas />
+          <Navbar />
+          <MobileNav />
           <main className="relative z-10">{children}</main>
         </LenisProvider>
       </body>

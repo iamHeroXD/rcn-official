@@ -119,12 +119,12 @@ export const Hero = () => {
         <div className="glass-dark px-4 py-2 rounded-lg flex items-center gap-3 border-l-2 border-prime-purple">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
           <span className="text-xs font-mono text-white/70 uppercase tracking-widest">
-            8,421 Users Online
+            100 Active Users
           </span>
         </div>
         <div className="glass-dark px-4 py-2 rounded-lg flex items-center gap-3 border-l-2 border-white/20">
           <span className="text-xs font-mono text-white/40 uppercase tracking-widest">
-            Uptime: 99.99%
+            30+ Deals Secured
           </span>
         </div>
       </motion.div>

@@ -2,7 +2,7 @@ import { Hero } from "@/components/sections/hero";
 import { Trust } from "@/components/sections/trust";
 import { Features } from "@/components/sections/features";
 import { Interactive3DSection } from "@/components/sections/interactive-3d";
-import { MarketplacePreview } from "@/components/sections/marketplace-preview";
+import { SupportUs } from "@/components/sections/support-us";
 import { Reviews } from "@/components/sections/reviews";
 import { RCNCoins } from "@/components/sections/coins";
 import { Premium } from "@/components/sections/premium";
@@ -17,7 +17,7 @@ export default function Home() {
       <Trust />
       <Features />
       <Interactive3DSection />
-      <MarketplacePreview />
+      <SupportUs />
       <Reviews />
       <RCNCoins />
       <Premium />
