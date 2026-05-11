@@ -3,11 +3,35 @@
 import { motion } from "framer-motion";
 import { Heart, Wallet, CreditCard, Coins, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/providers/toast-provider";
+import { useState, useEffect } from "react";
 
 export const SupportUs = () => {
+  const { toast } = useToast();
+  const [displayAmount, setDisplayAmount] = useState(0);
   const currentAmount = 10;
   const targetAmount = 1000;
   const percentage = (currentAmount / targetAmount) * 100;
+
+  useEffect(() => {
+    const duration = 2000;
+    const start = 0;
+    const end = currentAmount;
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setDisplayAmount(Math.floor(progress * (end - start) + start));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [currentAmount]);
+
+  const handleOtherMethods = () => {
+    toast("No other payment methods currently available for now.", "info");
+  };
 
   return (
     <section id="support" className="py-24 px-4 bg-black relative overflow-hidden">
@@ -45,11 +69,11 @@ export const SupportUs = () => {
             </motion.p>
 
             {/* Progress Bar Container */}
-            <div className="glass-dark p-8 rounded-[2.5rem] border border-white/10 mb-12">
-              <div className="flex justify-between items-end mb-4">
+            <div className="glass-dark p-8 rounded-[2.5rem] border border-white/10 mb-12 relative overflow-hidden group">
+              <div className="flex justify-between items-end mb-4 relative z-10">
                 <div>
                   <div className="text-[10px] text-white/30 uppercase tracking-[0.2em] mb-1">Current Funding</div>
-                  <div className="text-4xl font-black text-white tracking-tighter">${currentAmount}</div>
+                  <div className="text-4xl font-black text-white tracking-tighter">${displayAmount}</div>
                 </div>
                 <div className="text-right">
                   <div className="text-[10px] text-white/30 uppercase tracking-[0.2em] mb-1">Target</div>
@@ -58,7 +82,7 @@ export const SupportUs = () => {
               </div>
 
               {/* The Progress Bar */}
-              <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 p-1">
+              <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 p-1 relative">
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: `${percentage}%` }}
@@ -66,7 +90,11 @@ export const SupportUs = () => {
                   transition={{ duration: 1.5, ease: "circOut" }}
                   className="h-full bg-gradient-to-r from-prime-purple to-prime-red rounded-full relative"
                 >
-                  <div className="absolute top-0 right-0 h-full w-8 bg-white/20 blur-md" />
+                  <motion.div 
+                    animate={{ x: [0, 20, 0], opacity: [0.5, 1, 0.5] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="absolute top-0 right-0 h-full w-4 bg-white/60 blur-sm rounded-full" 
+                  />
                 </motion.div>
               </div>
               <div className="mt-4 text-[10px] font-mono text-white/20 text-center uppercase tracking-widest">
@@ -91,13 +119,16 @@ export const SupportUs = () => {
                   <Heart className="w-6 h-6 text-prime-purple fill-current" />
                   Elite Benefactor Perk
                 </h3>
-                <p className="text-white/50 text-sm mb-6 max-w-md">
+                <p className="text-white/50 text-sm mb-6 max-w-md leading-relaxed">
                   Support us with more than <span className="text-white font-bold">$20</span>, <span className="text-white font-bold">1000 INR</span>, or <span className="text-white font-bold">1000 RBX</span> to unlock:
                 </p>
-                <div className="flex items-center gap-3 bg-prime-purple/20 border border-prime-purple/30 px-6 py-4 rounded-2xl w-fit">
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  className="flex items-center gap-3 bg-prime-purple/20 border border-prime-purple/30 px-6 py-4 rounded-2xl w-fit cursor-default"
+                >
                   <CheckCircle2 className="w-5 h-5 text-prime-purple" />
                   <span className="text-sm font-bold text-white tracking-tight">FREE MAX PLAN FOR OUR BOT</span>
-                </div>
+                </motion.div>
               </motion.div>
 
               {/* Payment Options */}
@@ -111,7 +142,10 @@ export const SupportUs = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   transition={{ delay: i * 0.1 }}
+                  onClick={handleOtherMethods}
                   className={`glass-dark p-6 rounded-2xl border border-white/5 ${opt.color} transition-all duration-300 cursor-pointer group`}
                 >
                   <div className="mb-4 p-3 bg-white/5 rounded-xl w-fit group-hover:bg-white/10 transition-colors">
@@ -126,10 +160,13 @@ export const SupportUs = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ delay: 0.3 }}
-                className="flex items-center justify-center glass-dark rounded-2xl border border-dashed border-white/10 hover:border-white/30 transition-colors cursor-pointer"
+                onClick={handleOtherMethods}
+                className="flex items-center justify-center glass-dark rounded-2xl border border-dashed border-white/10 hover:border-prime-purple hover:text-white transition-all cursor-pointer group p-6"
               >
-                <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">Other Methods</span>
+                <span className="text-[10px] font-bold text-white/20 group-hover:text-white uppercase tracking-widest">Other Methods</span>
               </motion.div>
             </div>
           </div>

@@ -2,33 +2,63 @@
 
 import { motion } from "framer-motion";
 import { ShieldCheck, Users, Briefcase, Zap, Bot, Globe } from "lucide-react";
+import { useMotionValue, useSpring, useTransform } from "framer-motion";
 
-const stats = [
-  {
-    label: "30+ Deals",
-    value: "Proven",
-    icon: <Briefcase className="w-6 h-6 text-prime-red" />,
-    desc: "Successfully tracked and protected trades.",
-  },
-  {
-    label: "100+ Users",
-    value: "Community",
-    icon: <Users className="w-6 h-6 text-prime-purple" />,
-    desc: "Growing network of Roblox professionals.",
-  },
-  {
-    label: "50+ Websites",
-    value: "85% Happy",
-    icon: <Globe className="w-6 h-6 text-blue-400" />,
-    desc: "High-end web solutions for global studios.",
-  },
-  {
-    label: "Bot Experts",
-    value: "Automation",
-    icon: <Bot className="w-6 h-6 text-green-400" />,
-    desc: "Custom Discord systems built for creators.",
-  },
-];
+const StatCard = ({ stat, i }: { stat: any, i: number }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set(e.clientX - rect.left - rect.width / 2);
+    y.set(e.clientY - rect.top - rect.height / 2);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: i * 0.1 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      className="glass-dark p-8 rounded-2xl border border-white/5 hover:border-white/20 transition-all duration-500 group relative overflow-hidden"
+    >
+      <div style={{ transform: "translateZ(50px)" }} className="relative z-10">
+        <div className="mb-6 p-3 bg-white/5 rounded-xl w-fit group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500">
+          {stat.icon}
+        </div>
+        <h3 className="text-3xl font-bold text-white mb-1">{stat.label}</h3>
+        <p className="text-prime-purple font-mono text-xs uppercase tracking-widest mb-4">
+          {stat.value}
+        </p>
+        <p className="text-white/40 text-sm leading-relaxed">{stat.desc}</p>
+      </div>
+
+      {/* Specular Highlight */}
+      <motion.div 
+        style={{ 
+          background: "radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%)",
+          left: x,
+          top: y,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        className="absolute w-64 h-64 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity blur-3xl" 
+      />
+    </motion.div>
+  );
+};
 
 export const Trust = () => {
   return (
@@ -36,26 +66,10 @@ export const Trust = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="glass-dark p-8 rounded-2xl border border-white/5 hover:border-white/20 transition-all duration-500 group"
-            >
-              <div className="mb-6 p-3 bg-white/5 rounded-xl w-fit group-hover:scale-110 transition-transform duration-500">
-                {stat.icon}
-              </div>
-              <h3 className="text-3xl font-bold text-white mb-1">{stat.label}</h3>
-              <p className="text-prime-purple font-mono text-xs uppercase tracking-widest mb-4">
-                {stat.value}
-              </p>
-              <p className="text-white/40 text-sm leading-relaxed">{stat.desc}</p>
-            </motion.div>
+            <StatCard key={i} stat={stat} i={i} />
           ))}
         </div>
-
+...
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

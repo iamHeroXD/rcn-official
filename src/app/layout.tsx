@@ -7,6 +7,9 @@ import { LoadingScreen } from "@/components/ui/loading-screen";
 import { GlobalCanvas } from "@/components/canvas/global-canvas";
 import { Navbar } from "@/components/ui/navbar";
 import { MobileNav } from "@/components/ui/mobile-nav";
+import { ToastProvider } from "@/components/providers/toast-provider";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { BackToTop } from "@/components/ui/back-to-top";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -44,14 +47,19 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} font-sans antialiased bg-black`}>
-        <LenisProvider>
-          <LoadingScreen />
-          <CustomCursor />
-          <GlobalCanvas />
-          <Navbar />
-          <MobileNav />
-          <main className="relative z-10">{children}</main>
-        </LenisProvider>
+        <div className="noise-overlay" />
+        <ToastProvider>
+          <LenisProvider>
+            <LoadingScreen />
+            <CustomCursor />
+            <ScrollProgress />
+            <BackToTop />
+            <GlobalCanvas />
+            <Navbar />
+            <MobileNav />
+            <main className="relative z-10">{children}</main>
+          </LenisProvider>
+        </ToastProvider>
       </body>
     </html>
   );

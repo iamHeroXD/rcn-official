@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { View, Preload } from "@react-three/drei";
+import { View, Preload, Stars } from "@react-three/drei";
 import { Suspense } from "react";
 
 export const GlobalCanvas = () => {
@@ -14,7 +14,7 @@ export const GlobalCanvas = () => {
         width: "100vw",
         height: "100vh",
         pointerEvents: "none",
-        zIndex: 1,
+        zIndex: 0,
       }}
     >
       <Canvas
@@ -25,6 +25,7 @@ export const GlobalCanvas = () => {
         dpr={[1, 2]}
       >
         <Suspense fallback={null}>
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
           <View.Port />
           <Preload all />
         </Suspense>

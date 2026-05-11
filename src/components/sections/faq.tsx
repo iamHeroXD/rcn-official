@@ -62,14 +62,22 @@ export const FAQ = () => {
         >
           <Accordion className="w-full space-y-4">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="border-white/5 bg-white/5 rounded-2xl px-6">
-                <AccordionTrigger className="text-white hover:text-prime-purple transition-colors text-left py-6">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-white/40 leading-relaxed pb-6">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <AccordionItem value={`item-${i}`} className="border-white/5 bg-white/5 rounded-2xl px-6">
+                  <AccordionTrigger className="text-white hover:text-prime-purple transition-colors text-left py-6">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/40 leading-relaxed pb-6">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
         </motion.div>

@@ -41,6 +41,25 @@ const RotatingTaglines = () => {
   );
 };
 
+const Counter = ({ end, duration = 2000, suffix = "" }: { end: number, duration?: number, suffix?: string }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [end, duration]);
+
+  return <>{count}{suffix}</>;
+};
+
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-4 overflow-hidden">
@@ -64,7 +83,7 @@ export const Hero = () => {
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           className="text-7xl md:text-9xl font-black tracking-tighter text-white mb-6 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
         >
-          RCN <span className="text-transparent bg-clip-text bg-gradient-to-r from-prime-purple via-white to-prime-red">PRIME</span>
+          RCN <span className="text-transparent bg-clip-text bg-gradient-to-r from-prime-purple via-white to-prime-red bg-[length:200%_auto] animate-gradient-flow">PRIME</span>
         </motion.h1>
 
         <motion.p
@@ -83,27 +102,36 @@ export const Hero = () => {
           className="flex flex-col md:flex-row gap-6 justify-center items-center"
         >
           <Magnetic>
-            <Button className="h-16 px-10 text-lg rounded-full bg-white text-black hover:bg-white/90 transition-all duration-300 group purple-glow">
-              Add To Discord
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-                className="ml-2"
-              >
-                <MessageSquare className="w-5 h-5" />
-              </motion.span>
+            <Button 
+              asChild
+              className="h-16 px-10 text-lg rounded-full bg-white text-black hover:bg-white/90 transition-all duration-300 group purple-glow shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+            >
+              <motion.a href="https://discord.gg/rcn" target="_blank" whileTap={{ scale: 0.95 }}>
+                Add To Discord
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                  className="ml-2"
+                >
+                  <MessageSquare className="w-5 h-5" />
+                </motion.span>
+              </motion.a>
             </Button>
           </Magnetic>
 
           <Magnetic>
-            <Button variant="outline" className="h-16 px-10 text-lg rounded-full border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 text-white transition-all duration-300">
-              Explore Features
+            <Button asChild variant="outline" className="h-16 px-10 text-lg rounded-full border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 text-white transition-all duration-300">
+              <motion.a href="#features" whileTap={{ scale: 0.95 }}>
+                Explore Features
+              </motion.a>
             </Button>
           </Magnetic>
 
           <Magnetic>
-            <Button variant="ghost" className="h-16 px-10 text-lg rounded-full text-white/40 hover:text-white transition-colors">
-              Join Marketplace
+            <Button asChild variant="ghost" className="h-16 px-10 text-lg rounded-full text-white/40 hover:text-white transition-colors">
+              <motion.a href="#premium" whileTap={{ scale: 0.95 }}>
+                Join Marketplace
+              </motion.a>
             </Button>
           </Magnetic>
         </motion.div>
@@ -119,12 +147,12 @@ export const Hero = () => {
         <div className="glass-dark px-4 py-2 rounded-lg flex items-center gap-3 border-l-2 border-prime-purple">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
           <span className="text-xs font-mono text-white/70 uppercase tracking-widest">
-            100 Active Users
+            <Counter end={100} /> Active Users
           </span>
         </div>
         <div className="glass-dark px-4 py-2 rounded-lg flex items-center gap-3 border-l-2 border-white/20">
           <span className="text-xs font-mono text-white/40 uppercase tracking-widest">
-            30+ Deals Secured
+            <Counter end={30} suffix="+" /> Deals Secured
           </span>
         </div>
       </motion.div>

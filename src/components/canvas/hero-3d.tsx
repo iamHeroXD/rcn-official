@@ -39,7 +39,6 @@ export const Hero3D = () => {
       <group ref={groupRef}>
         <AnimatedOrb position={[2, 1, -2]} color="#5e00ff" speed={2} distort={0.4} />
         <AnimatedOrb position={[-3, -1, -3]} color="#ff0040" speed={1.5} distort={0.3} />
-        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
       </group>
       
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -5, 0]}>

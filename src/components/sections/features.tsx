@@ -6,6 +6,8 @@ import {
   Brain, Crown, ShieldCheck, UserCircle, History,
   Bell, Database, Lock, TrendingUp, Cpu
 } from "lucide-react";
+import { View } from "@react-three/drei";
+import { Features3D } from "@/components/canvas/features-3d";
 
 const features = [
   { title: "Marketplace System", desc: "Elite trading floor for all assets.", icon: <ShoppingBag /> },
@@ -33,10 +35,15 @@ function StarIcon() {
 
 export const Features = () => {
   return (
-    <section className="py-24 px-4 bg-black relative overflow-hidden">
+    <section id="features" className="py-24 px-4 bg-black relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       
-      <div className="max-w-7xl mx-auto">
+      {/* 3D View */}
+      <View className="absolute inset-0 pointer-events-none opacity-40">
+        <Features3D />
+      </View>
+      
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-16 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -51,26 +58,42 @@ export const Features = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.05 }
+            }
+          }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4"
+        >
           {features.map((feature, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
+              variants={{
+                hidden: { opacity: 0, scale: 0.9, y: 20 },
+                show: { opacity: 1, scale: 1, y: 0 }
+              }}
               className="glass-dark p-6 rounded-xl border border-white/5 hover:border-prime-purple/50 hover:bg-white/[0.08] transition-all duration-500 group cursor-pointer"
             >
-              <div className="mb-4 text-white/40 group-hover:text-prime-purple transition-colors duration-500">
+              <motion.div 
+                whileHover={{ rotate: 360 }}
+                transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                className="mb-4 text-white/40 group-hover:text-prime-purple transition-colors duration-500"
+              >
                 {feature.icon}
-              </div>
+              </motion.div>
               <h3 className="text-sm font-bold text-white mb-2">{feature.title}</h3>
               <p className="text-[11px] text-white/30 leading-relaxed group-hover:text-white/50 transition-colors">
                 {feature.desc}
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

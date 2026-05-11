@@ -51,8 +51,8 @@ export const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button className="rounded-full bg-white text-black hover:bg-white/90 px-6 h-10 text-xs font-bold shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-              Dashboard
+            <Button asChild className="rounded-full bg-white text-black hover:bg-white/90 px-6 h-10 text-xs font-bold shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+              <Link href="/dashboard">Dashboard</Link>
             </Button>
           </div>
         </div>
